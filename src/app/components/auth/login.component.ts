@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -9,33 +9,23 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule],
   template: `
-    <div class="auth-container">
+    <div class="auth-wrapper">
       <div class="auth-card">
         <h2>Вход в систему</h2>
         <form (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>Email</label>
-            <input 
-              type="email" 
-              [(ngModel)]="email" 
-              name="email"
-              placeholder="example@mail.com"
-              required
-            />
+            <input type="email" [(ngModel)]="email" name="email" required />
           </div>
           <div class="form-group">
             <label>Пароль</label>
-            <input 
-              type="password" 
-              [(ngModel)]="password" 
-              name="password"
-              placeholder="••••••••"
-              required
-            />
+            <input type="password" [(ngModel)]="password" name="password" required />
           </div>
-          <div class="error-message" *ngIf="errorMessage">
-            {{ errorMessage }}
+          
+          <div class="error-alert" *ngIf="errorMessage">
+            ⚠️ {{ errorMessage }}
           </div>
+
           <button type="submit" class="btn-primary" [disabled]="loading">
             {{ loading ? 'Вход...' : 'Войти' }}
           </button>
@@ -47,84 +37,22 @@ import { AuthService } from '../../services/auth.service';
     </div>
   `,
   styles: [`
-    .auth-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 100px);
-    }
-    .auth-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-    .auth-card h2 {
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      color: #2c3e50;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #34495e;
-      font-weight: 500;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-    .form-group input:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-    .btn-primary {
-      width: 100%;
-      padding: 0.75rem;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .btn-primary:hover:not(:disabled) {
-      background: #2980b9;
-    }
-    .btn-primary:disabled {
-      background: #95a5a6;
-      cursor: not-allowed;
-    }
-    .auth-footer {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-    .auth-footer a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    .auth-footer a:hover {
-      text-decoration: underline;
-    }
-    .error-message {
-      color: #e74c3c;
-      margin-bottom: 1rem;
-      padding: 0.5rem;
-      background: #fadbd8;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
+    .auth-wrapper { display: flex; justify-content: center; align-items: center; min-height: 80vh; background: #f3f4f6; }
+    .auth-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 1px solid #e5e7eb; }
+    h2 { text-align: center; color: #111827; margin-top: 0; margin-bottom: 2rem; font-size: 1.8rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; margin-bottom: 0.5rem; color: #374151; font-weight: 500; font-size: 0.9rem; }
+    input { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
+    input:focus { outline: none; border-color: #2563eb; ring: 2px solid #bfdbfe; }
+    
+    .btn-primary { width: 100%; background: #2563eb; color: white; border: none; padding: 0.85rem; border-radius: 6px; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; margin-top: 1rem; }
+    .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+    
+    .auth-footer { margin-top: 1.5rem; text-align: center; font-size: 0.95rem; color: #4b5563; }
+    .auth-footer a { color: #2563eb; text-decoration: none; font-weight: 500; }
+    
+    .error-alert { background: #fef2f2; color: #dc2626; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; border: 1px solid #fecaca; }
   `]
 })
 export class LoginComponent {
@@ -135,8 +63,9 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   async onSubmit(): Promise<void> {
     this.errorMessage = '';
@@ -153,6 +82,7 @@ export class LoginComponent {
       this.errorMessage = 'Произошла ошибка при входе';
     } finally {
       this.loading = false;
+      this.cdr.detectChanges();
     }
   }
 }

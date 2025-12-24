@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaxCalculator.Api.Models;
 using TaxCalculator.Api.Repositories;
 using System;
@@ -9,19 +10,21 @@ namespace TaxCalculator.Api.Controllers
     [Route("api/tax")]
     public class TaxController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly ITaxRepository _taxRepository;
 
-        public TaxController(IRepository repository)
+        public TaxController(ITaxRepository taxRepository)
         {
-            _repository = repository;
+            _taxRepository = taxRepository ?? throw new ArgumentNullException(nameof(taxRepository));
         }
 
+        [AllowAnonymous]
         [HttpPost("calculate")]
         public IActionResult Calculate([FromBody] CalculateRequest request)
         {
-            // Выполняем расчет на бэкенде
             decimal taxAmount = request.Amount * (decimal)(request.TaxRate / 100.0);
-            decimal total = request.Amount + taxAmount;
+            decimal total = request.Amount - taxAmount;
+
+            total = request.Amount - taxAmount;
 
             var result = new TaxCalculation
             {
@@ -29,32 +32,41 @@ namespace TaxCalculator.Api.Controllers
                 TaxRate = request.TaxRate,
                 TaxAmount = taxAmount,
                 TotalAmount = total,
-                Date = DateTime.Now
+                Date = DateTime.UtcNow
             };
 
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost("history")]
         public IActionResult SaveCalculation([FromBody] TaxCalculation calc)
         {
-            if (calc.UserId == 0) return BadRequest("UserId is required");
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null) return Unauthorized();
 
-            _repository.AddCalculation(calc);
+            calc.UserId = int.Parse(userIdClaim.Value);
+
+            if (calc.Date == default) calc.Date = DateTime.UtcNow;
+
+            _taxRepository.AddCalculation(calc);
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("history/{userId}")]
         public IActionResult GetHistory(int userId)
         {
-            var history = _repository.GetCalculations(userId);
+            var currentUserId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
+            var history = _taxRepository.GetCalculations(userId);
             return Ok(history);
         }
 
+        [Authorize]
         [HttpDelete("history/{id}")]
         public IActionResult DeleteCalculation(int id)
         {
-            _repository.DeleteCalculation(id);
+            _taxRepository.DeleteCalculation(id);
             return Ok();
         }
     }

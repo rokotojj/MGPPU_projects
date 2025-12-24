@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|c:\\users\\int3graxx\\documents\\tax-calculator-app\\backend\\taxcalculator.api\\taxcalculator.api\\controllers\\referencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|solutionrelative:taxcalculator.api\\controllers\\referencecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|c:\\users\\int3graxx\\documents\\tax-calculator-app\\backend\\taxcalculator.api\\taxcalculator.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|solutionrelative:taxcalculator.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|c:\\users\\int3graxx\\documents\\tax-calculator-app\\backend\\taxcalculator.api\\taxcalculator.api\\controllers\\templatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|solutionrelative:taxcalculator.api\\controllers\\templatescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|c:\\users\\int3graxx\\documents\\tax-calculator-app\\backend\\taxcalculator.api\\taxcalculator.api\\models\\template.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|solutionrelative:taxcalculator.api\\models\\template.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|c:\\users\\int3graxx\\documents\\tax-calculator-app\\backend\\taxcalculator.api\\taxcalculator.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AA560411-B7A1-4C45-8540-079F21FC838A}|TaxCalculator.Api\\TaxCalculator.Api.csproj|solutionrelative:taxcalculator.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -30,70 +14,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TemplatesController.cs",
-              "DocumentMoniker": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\TemplatesController.cs",
-              "RelativeDocumentMoniker": "TaxCalculator.Api\\Controllers\\TemplatesController.cs",
-              "ToolTip": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\TemplatesController.cs",
-              "RelativeToolTip": "TaxCalculator.Api\\Controllers\\TemplatesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T19:45:05.343Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ReferenceController.cs",
-              "DocumentMoniker": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\ReferenceController.cs",
-              "RelativeDocumentMoniker": "TaxCalculator.Api\\Controllers\\ReferenceController.cs",
-              "ToolTip": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\ReferenceController.cs",
-              "RelativeToolTip": "TaxCalculator.Api\\Controllers\\ReferenceController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T19:45:04.781Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "TaxCalculator.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "TaxCalculator.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T19:45:04.28Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Template.cs",
-              "DocumentMoniker": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Models\\Template.cs",
-              "RelativeDocumentMoniker": "TaxCalculator.Api\\Models\\Template.cs",
-              "ToolTip": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Models\\Template.cs",
-              "RelativeToolTip": "TaxCalculator.Api\\Models\\Template.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T19:45:03.046Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Program.cs",
               "RelativeDocumentMoniker": "TaxCalculator.Api\\Program.cs",
               "ToolTip": "C:\\Users\\int3graxx\\Documents\\tax-calculator-app\\backend\\TaxCalculator.Api\\TaxCalculator.Api\\Program.cs",
               "RelativeToolTip": "TaxCalculator.Api\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-12T18:59:39.665Z"
+              "WhenOpened": "2025-12-24T17:06:03.998Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -6,11 +6,12 @@ export interface User {
   id: number;
   email: string;
   name: string;
+  role: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth'; 
+  private apiUrl = 'http://localhost:5000/api/auth';
   private currentUser: User | null = null;
 
   constructor(private http: HttpClient) {
@@ -20,25 +21,27 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<boolean> {
     try {
+      const token = btoa(`${email}:${password}`);
+      localStorage.setItem('auth_token', token);
       const res: any = await firstValueFrom(
         this.http.post(`${this.apiUrl}/login`, { email, password })
       );
-      console.log('ОТВЕТ ВХОДА:', res);
-      const rawUser = res.user || res.User;
 
+      const rawUser = res.user || res.User;
       if (!rawUser) return false;
 
       this.currentUser = {
         id: rawUser.id || rawUser.Id,
         email: rawUser.email || rawUser.Email,
-        name: rawUser.name || rawUser.Name
+        name: rawUser.name || rawUser.Name,
+        role: rawUser.role || rawUser.Role
       };
 
-      console.log('Пользователь сохранен:', this.currentUser);
       localStorage.setItem('user', JSON.stringify(this.currentUser));
       return true;
     } catch (e) {
       console.error(e);
+      localStorage.removeItem('auth_token');
       return false;
     }
   }
@@ -58,8 +61,14 @@ export class AuthService {
   logout() {
     this.currentUser = null;
     localStorage.removeItem('user');
+    localStorage.removeItem('auth_token');
   }
 
   isAuthenticated(): boolean { return !!this.currentUser; }
   getCurrentUser(): User | null { return this.currentUser; }
+
+
+  isAdmin(): boolean {
+    return this.currentUser?.role === 'Admin';
+  }
 }

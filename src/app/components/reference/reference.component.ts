@@ -115,7 +115,7 @@ import {
     }
     .search-input {
       width: 100%;
-      padding: 0.75rem 1rem 0.75rem 2.8rem; /* Отступ под иконку */
+      padding: 0.75rem 1rem 0.75rem 2.8rem;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       font-size: 0.95rem;

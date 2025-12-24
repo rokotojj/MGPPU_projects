@@ -101,7 +101,7 @@ import { TaxCalculatorService, TaxCalculation } from '../../services/tax-calcula
       border-radius: 6px;
       font-size: 1rem;
       transition: border-color 0.2s;
-      box-sizing: border-box; /* ВАЖНО для выравнивания */
+      box-sizing: border-box;
     }
     input:focus { outline: none; border-color: #2563eb; ring: 2px solid #bfdbfe; }
     .hint { font-size: 0.85rem; color: #6b7280; display: block; margin-bottom: 0.5rem; }

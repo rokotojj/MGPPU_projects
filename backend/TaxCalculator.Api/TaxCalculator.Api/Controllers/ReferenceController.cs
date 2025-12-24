@@ -7,9 +7,9 @@ namespace TaxCalculator.Api.Controllers
     [Route("api/reference")]
     public class ReferenceController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly IReferenceRepository _repository;
 
-        public ReferenceController(IRepository repository)
+        public ReferenceController(IReferenceRepository repository)
         {
             _repository = repository;
         }

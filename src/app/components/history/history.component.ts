@@ -67,7 +67,7 @@ import { TaxCalculatorService, TaxCalculation } from '../../services/tax-calcula
 })
 export class HistoryComponent implements OnInit {
   calculations: TaxCalculation[] = [];
-  constructor(private service: TaxCalculatorService, private cdr: ChangeDetectorRef) {}
+  constructor(private service: TaxCalculatorService, private cdr: ChangeDetectorRef) { }
   async ngOnInit() { await this.loadHistory(); }
   async loadHistory() {
     this.calculations = await this.service.getHistory();
@@ -76,5 +76,5 @@ export class HistoryComponent implements OnInit {
   }
   getTotalTax() { return this.calculations.reduce((sum, c) => sum + (c.taxAmount || 0), 0); }
   formatDate(d: any) { return d ? new Date(d).toLocaleDateString() : ''; }
-  async deleteCalculation(id: number) { if(confirm('Удалить?')) { await this.service.deleteCalculation(id); await this.loadHistory(); } }
+  async deleteCalculation(id: number) { if (confirm('Удалить?')) { await this.service.deleteCalculation(id); await this.loadHistory(); } }
 }

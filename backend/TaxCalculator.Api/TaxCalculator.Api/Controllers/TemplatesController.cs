@@ -8,9 +8,9 @@ namespace TaxCalculator.Api.Controllers
     [Route("api/templates")]
     public class TemplatesController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly ITemplateRepository _repository;
 
-        public TemplatesController(IRepository repository)
+        public TemplatesController(ITemplateRepository repository)
         {
             _repository = repository;
         }

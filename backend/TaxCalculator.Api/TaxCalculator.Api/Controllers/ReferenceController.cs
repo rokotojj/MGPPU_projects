@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaxCalculator.Api.Repositories;
+using System;
 
 namespace TaxCalculator.Api.Controllers
 {
@@ -11,7 +12,7 @@ namespace TaxCalculator.Api.Controllers
 
         public ReferenceController(IReferenceRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         [HttpGet("taxes")]

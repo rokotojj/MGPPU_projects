@@ -1,4 +1,5 @@
 ﻿using TaxCalculator.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,7 @@ namespace TaxCalculator.Api.Repositories
 
         public EfTaxRepository(AppDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public List<TaxCalculation> GetCalculations(int userId)
@@ -23,6 +24,8 @@ namespace TaxCalculator.Api.Repositories
 
         public void AddCalculation(TaxCalculation calc)
         {
+            if (calc == null) throw new ArgumentNullException(nameof(calc));
+
             _context.TaxCalculations.Add(calc);
             _context.SaveChanges();
         }

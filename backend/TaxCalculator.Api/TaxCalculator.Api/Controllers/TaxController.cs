@@ -21,10 +21,10 @@ namespace TaxCalculator.Api.Controllers
         [HttpPost("calculate")]
         public IActionResult Calculate([FromBody] CalculateRequest request)
         {
+            if (request == null) return BadRequest("Данные не переданы");
+
             decimal taxAmount = request.Amount * (decimal)(request.TaxRate / 100.0);
             decimal total = request.Amount - taxAmount;
-
-            total = request.Amount - taxAmount;
 
             var result = new TaxCalculation
             {
@@ -42,11 +42,12 @@ namespace TaxCalculator.Api.Controllers
         [HttpPost("history")]
         public IActionResult SaveCalculation([FromBody] TaxCalculation calc)
         {
+            if (calc == null) return BadRequest("Данные не переданы");
+
             var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
             if (userIdClaim == null) return Unauthorized();
 
             calc.UserId = int.Parse(userIdClaim.Value);
-
             if (calc.Date == default) calc.Date = DateTime.UtcNow;
 
             _taxRepository.AddCalculation(calc);
@@ -57,7 +58,6 @@ namespace TaxCalculator.Api.Controllers
         [HttpGet("history/{userId}")]
         public IActionResult GetHistory(int userId)
         {
-            var currentUserId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)!.Value);
             var history = _taxRepository.GetCalculations(userId);
             return Ok(history);
         }

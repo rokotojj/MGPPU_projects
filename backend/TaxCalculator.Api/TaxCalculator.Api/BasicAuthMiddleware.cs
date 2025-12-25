@@ -22,7 +22,7 @@ namespace TaxCalculator.Api
             IUserRepository userService)
             : base(options, logger, encoder)
         {
-            _userService = userService;
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -30,18 +30,23 @@ namespace TaxCalculator.Api
             await Task.Yield();
 
             if (!Request.Headers.ContainsKey("Authorization"))
-                return AuthenticateResult.Fail("Missing Authorization Header");
+                return AuthenticateResult.Fail("Отсутствует заголовок авторизации");
 
             TaxCalculator.Api.Models.User? user = null;
             try
             {
                 var headerValue = Request.Headers["Authorization"].ToString();
                 var authHeader = AuthenticationHeaderValue.Parse(headerValue!);
+
                 if (authHeader.Parameter == null)
-                    return AuthenticateResult.Fail("Invalid Header");
+                    return AuthenticateResult.Fail("Неверный параметр заголовка");
 
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter);
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
+
+                if (credentials.Length != 2)
+                    return AuthenticateResult.Fail("Неверный формат учетных данных");
+
                 var username = credentials[0];
                 var password = credentials[1];
 
@@ -49,11 +54,11 @@ namespace TaxCalculator.Api
             }
             catch
             {
-                return AuthenticateResult.Fail("Invalid Authorization Header");
+                return AuthenticateResult.Fail("Неверный заголовок авторизации");
             }
 
             if (user == null)
-                return AuthenticateResult.Fail("Invalid Username or Password");
+                return AuthenticateResult.Fail("Неверное имя пользователя или пароль");
 
             var claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

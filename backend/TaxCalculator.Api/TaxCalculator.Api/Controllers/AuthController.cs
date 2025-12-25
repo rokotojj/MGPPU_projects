@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TaxCalculator.Api.Models;
 using TaxCalculator.Api.Repositories;
+using System;
 using System.Text.RegularExpressions;
 
 namespace TaxCalculator.Api.Controllers
@@ -21,9 +22,13 @@ namespace TaxCalculator.Api.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
+            if (request == null) return BadRequest("Пустой запрос");
+            if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+                return BadRequest("Email и пароль обязательны");
+
             var user = _userRepository.GetUser(request.Email, request.Password);
             if (user == null)
-                return Unauthorized(new { message = "Неверный логин или пароль" });
+                return Unauthorized(new { message = "Неверный email или пароль" });
 
             return Ok(new { user });
         }
@@ -32,12 +37,15 @@ namespace TaxCalculator.Api.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterRequest request)
         {
-            //(буква + цифра, мин 8 символов)
+            if (request == null) return BadRequest("Пустой запрос");
+            if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
+                return BadRequest("Все поля обязательны для заполнения");
+
             var passwordPattern = @"^(?=.*[A-Za-z])(?=.*\d).{8,}$";
 
             if (!Regex.IsMatch(request.Password, passwordPattern))
             {
-                return BadRequest(new { message = "Пароль должен быть мин. 8 символов и содержать буквы и цифры." });
+                return BadRequest(new { message = "Пароль должен быть не менее 8 символов и содержать буквы и цифры" });
             }
 
             if (_userRepository.UserExists(request.Email))

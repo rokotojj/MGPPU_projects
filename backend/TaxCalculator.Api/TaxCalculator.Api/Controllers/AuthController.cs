@@ -51,7 +51,7 @@ namespace TaxCalculator.Api.Controllers
             if (_userRepository.UserExists(request.Email))
                 return BadRequest(new { message = "Пользователь уже существует" });
 
-            var user = _userRepository.CreateUser(request.Email, request.Password, request.Name);
+            var user = _userRepository.CreateUser(request.Email, request.Password, request.Name ?? "");
             return Ok(new { success = true });
         }
     }

@@ -12,7 +12,7 @@ namespace TaxCalculator.Api.Controllers
 
         public TemplatesController(ITemplateRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }
 
         [HttpGet("{userId}")]
